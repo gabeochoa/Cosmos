@@ -39,7 +39,7 @@ void list(void);
 void agress(void);
 
 void error(void) { 
-    printf("parse error\n");
+    //printf("parse error\n");
     throw new ParseException();
 }
 
@@ -71,7 +71,7 @@ void raw(void) {
     if (token.size() == 0) {
         return;
     } else {
-        cout << "token " << token << endl;
+        //cout << "token " << token << endl;
         error();
     }
 }
@@ -89,7 +89,7 @@ string dealerid(void) {
         if(token == vd)
             return vd;
     }
-    std::cout << "ERROR: NO DEALER ID MATCH" << endl;
+    //std::cout << "ERROR: NO DEALER ID MATCH" << endl;
     error();
     return "";
 }
@@ -236,7 +236,7 @@ bool isValid(std::string& myin, std::vector<std::string>& myout)
     {
         parse();
     }
-    catch(ParseException pe)
+    catch(...)
     {
         val = false;
     }
