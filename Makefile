@@ -4,10 +4,10 @@ LD_FLAGS :=
 CC_FLAGS := -std=c++11 -g 
 
 main.exe: $(OBJ_FILES)
-	g++ $(LD_FLAGS) -o $@ $^
+	clang++ $(LD_FLAGS) -o $@ $^
 
 obj/%.o: src/%.cpp
-	g++ $(CC_FLAGS) -c -o $@ $<
+	clang++ $(CC_FLAGS) -c -o $@ $<
 
 clean:
 	rm obj/*.o main.exe

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "parser.h"
+#include "database.h"
 
 using namespace std;
 
