@@ -7,8 +7,8 @@ Processor::Processor()
 
 void Processor::run(Database& database, std::vector<std::string> strToProc)
 {
-    for(std::string s : strToProc)
-        std::cout << s << std::endl;
+    //for(std::string s : strToProc)
+    //    std::cout << s << std::endl;
     std::string cmd = strToProc[1];
 
     std::string dealer = "N/A";
@@ -30,6 +30,22 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
     }else if(cmd == "REVOKE" || cmd == "CHECK"){
 
     }else if(cmd == "LIST"){
+        bool useFilter = false;
+        if(strToProc.size() == 3 )
+        {
+            database.filterData(strToProc[2], "");
+            useFilter = true;
+        }
+        else if(strToProc.size() == 4)
+        {
+            database.filterData(strToProc[2], strToProc[3]);
+            useFilter = true;
+        }
+
+        std::vector<Order> found = database.findData(useFilter);
+
+        for(Order s : found)
+            std::cout << s << std::endl;
     }else if(cmd == "AGRESS"){
     }
 

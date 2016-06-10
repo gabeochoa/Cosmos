@@ -23,14 +23,14 @@ std::vector<Order> Database::findData(bool useFilter=false)
 {
     return useFilter? mydata : filteredData;
 }
-void Database::filterData(int order_id, std::string comm = "")
+void Database::filterData(std::string comm,  std::string dealer_ID)
 {
     filteredData.clear();
     for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
     {
-        if(iter->getOrderId() != order_id)
-            continue;
         if(comm != "" && iter->getCommodity() != comm)
+            continue;
+        if(dealer_ID != "" && iter->getDealer() != dealer_ID)
             continue;
         //gotten to this point
         filteredData.push_back(*iter);
@@ -50,7 +50,7 @@ void Database::print()
     {
         std::cout << "---------" << std::endl;
         std::cout << *iter << std::endl;
-        
+
     }
     std::cout << "----DATABASE END-----" << std::endl; 
 }

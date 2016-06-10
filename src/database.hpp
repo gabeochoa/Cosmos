@@ -26,7 +26,7 @@ class Database
         void addData(Order);
         void removeData(Order);
         std::vector<Order> findData(bool);
-        void filterData(int, std::string);
+        void filterData(std::string, std::string);
         int getOrderID();
         void print();
 };

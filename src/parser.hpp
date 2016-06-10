@@ -151,7 +151,7 @@ void list(void)
     if (token.size() == 0) {
         return;
     }
-    output.push_back(amount()); 
+    output.push_back(dealerid()); 
 }
 //AGGRESS_COMMAND = “AGGRESS” ( ORDER_ID AMOUNT )+
 void agress(void)
