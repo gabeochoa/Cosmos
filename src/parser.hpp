@@ -20,7 +20,7 @@ std::string token;
 void raw(void);
 void post(void);
 void list(void);
-void agress(void);
+void aggress(void);
 void command(void);
 void revoke_check(void);
 void inputmessage(void);
@@ -108,8 +108,8 @@ void command(void)
         revoke_check();
     }else if(token == "LIST"){
         list();
-    }else if(token == "AGRESS"){
-        agress();
+    }else if(token == "AGGRESS"){
+        aggress();
     }
 }
 
@@ -154,9 +154,9 @@ void list(void)
     output.push_back(dealerid()); 
 }
 //AGGRESS_COMMAND = “AGGRESS” ( ORDER_ID AMOUNT )+
-void agress(void)
+void aggress(void)
 {
-    output.push_back("AGRESS");
+    output.push_back("AGGRESS");
     getToken();
     output.push_back(amount()); 
     getToken();
@@ -170,6 +170,9 @@ void agress(void)
         }
         output.push_back(amount()); 
         getToken();
+        if (token.size() == 0) {
+            error();
+        }
         output.push_back(amount()); 
     }
 }
