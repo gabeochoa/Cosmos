@@ -20,58 +20,18 @@ class Database
     private:
         std::vector<Order> mydata;       
         std::vector<Order> filteredData;
+        int orderID = 0;
     public:
         Database();
         void addData(Order);
         void removeData(Order);
         std::vector<Order> findData(bool);
         void filterData(int, std::string);
-
+        int getOrderID();
+        void print();
 };
 
 #endif //DATABASE_H
-
-Database::Database()
-{
-
-}
-
-void Database::addData(Order data)
-{
-    //just add the data in this case
-    mydata.push_back(data);
-}
-
-void Database::removeData(Order data)
-{
-    for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
-    {
-        //if(*iter == data)
-        //    mydata.erase(iter);
-    }
-}
-std::vector<Order> Database::findData(bool useFilter=false)
-{
-    return useFilter? mydata : filteredData;
-}
-void Database::filterData(int order_id, std::string comm = "")
-{
-    filteredData.clear();
-    for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
-    {
-        if(iter->getOrderId() != order_id)
-            continue;
-        if(comm != "" && iter->getCommodity() != comm)
-            continue;
-        //gotten to this point
-        filteredData.push_back(*iter);
-    }
-}
-
-
-
-
-
 
 
 

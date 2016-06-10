@@ -27,6 +27,16 @@ class Order
         int getOrderId() const{return orderid;}
         int getAmount() const{return amount;}
         double getPrice() const{return price;}
+        friend std::ostream& operator<<(std::ostream& os, const Order& ord)
+        {
+            os << ord.dealer << ", ";
+            os << ord.side << ", ";
+            os << ord.commodity << ", ";
+            os << ord.orderid << ", ";
+            os << ord.amount << ", ";
+            os << ord.price;
+            return os;
+        }
 };
 
 #endif //ORDER_H

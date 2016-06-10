@@ -4,12 +4,14 @@
 #include <string> 
 #include <iostream>
 #include <vector>
+#include "database.hpp"
 
 class Processor 
 {
     //private:
     public:
-        static void run(std::vector<std::string>);
+        Processor();
+        void run(Database&, std::vector<std::string>);
 };
 
 #endif //PROCESSOR_H
