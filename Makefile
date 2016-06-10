@@ -21,7 +21,7 @@ $(EXEC): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(EXEC)
 
 clean:
-	-rm -rf obj/*.o cms
+	-rm -rf obj/*.o src/*.gch cms
 
 run:
 	./cms base < notes/testparser.txt
