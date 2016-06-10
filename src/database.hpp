@@ -25,8 +25,10 @@ class Database
         Database();
         void addData(Order);
         void removeData(Order);
+        bool aggress(std::string, int, int);
         std::vector<Order> findData(bool);
         void filterData(std::string, std::string);
+        std::vector<Order>::iterator getOrderFromID(int);
         int getOrderID();
         void print();
 };

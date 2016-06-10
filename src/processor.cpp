@@ -47,10 +47,20 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
 
         for(Order s : found)
             std::cout <<"\t" <<  s << std::endl;
-    }else if(cmd == "AGRESS"){
+    }else if(cmd == "AGGRESS"){
+        std::string dealer = strToProc[0];
+        strToProc.erase(strToProc.begin());//erase dealer
+        strToProc.erase(strToProc.begin());//erase cmd
+        for(int i =0; i<strToProc.size(); i+=2)
+        {
+            bool err = database.aggress(dealer, stoi(strToProc[i]), stoi(strToProc[i+1]));
+            if(!err)
+                std::cout << "error" << std::endl;
+            else
+                std::cout << "agress processed" << std::endl;
+                //TODO make more verbose error messages
+        }
     }
-
-
     //Order(std::string dealer_in, std::string side_in, std::string commodity_in, 
     // int orderid_in, int amount_in, double price_in)
     

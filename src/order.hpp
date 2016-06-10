@@ -27,6 +27,7 @@ class Order
         int getOrderId() const{return orderid;}
         int getAmount() const{return amount;}
         double getPrice() const{return price;}
+        void removeAmount(int quant) {amount -= quant;}
         friend std::ostream& operator<<(std::ostream& os, const Order& ord)
         {
             os << ord.dealer << ", ";
