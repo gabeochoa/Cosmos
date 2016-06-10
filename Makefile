@@ -1,10 +1,10 @@
 CC = clang++
-CFLAGS := -std=c++11 -g 
+CFLAGS := -std=c++11 -g
 EXEC = cms
 SRC_DIR = src
 OBJ = obj/main.o obj/processor.o obj/database.o
 
-all: 
+all:
 	make clean
 	make cms
 
@@ -24,4 +24,4 @@ clean:
 	-rm -rf obj/*.o cms
 
 run:
-	./cms base < foldertest/testparser.txt 
+	./cms base < notes/testparser.txt
