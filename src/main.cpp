@@ -22,8 +22,8 @@ int main(int argc, char** argv) {
     std::vector<std::string> temp;
     for (std::string line; std::getline(std::cin, line);) {
         std::cout << line << std::endl;
-        std::cout << isValid(line, temp) << std::endl;
-        Processor::run(temp);
+        if(isValid(line, temp))
+            Processor::run(temp);
 
     }
     return 0;

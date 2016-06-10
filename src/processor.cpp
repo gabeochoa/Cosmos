@@ -3,6 +3,7 @@
 
 void Processor::run(std::vector<std::string> strToProc)
 {
-    std::cout << "run" << std::endl;
+    for(std::string s : strToProc)
+    std::cout << s << std::endl;
 }
 

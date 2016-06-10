@@ -31,8 +31,20 @@ std::string amount(void);
 std::string dealerid(void);
 std::string commodity(void);
 
+//http://stackoverflow.com/questions/2844817/how-do-i-check-if-a-c-string-is-an-int
+inline bool isInteger(const std::string & s)
+{
+   if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false ;
+
+   char * p ;
+   strtol(s.c_str(), &p, 10) ;
+
+   return (*p == 0) ;
+}
+
+
 void error(void) { 
-    //printf("parse error\n");
+    printf("parse error\n");
     throw new ParseException();
 }
 
@@ -106,6 +118,7 @@ void post(void)
 {
     output.push_back("POST");
     getToken();
+    output.push_back(side());
     getToken();
     output.push_back(commodity());
     getToken();
@@ -184,15 +197,9 @@ std::string commodity(void)
 
 std::string amount(void)
 {
-    try
-    {
-        int value = std::stoi(token);
+    if(isInteger(token))
         return token;
-    }
-    catch(std::exception& e)
-    {
-        error();
-    }
+    error();
     return "";
 }
 
