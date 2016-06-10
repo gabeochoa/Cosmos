@@ -21,7 +21,7 @@ void Database::removeData(Order data)
 }
 std::vector<Order> Database::findData(bool useFilter=false)
 {
-    return useFilter? mydata : filteredData;
+    return useFilter? filteredData : mydata;
 }
 void Database::filterData(std::string comm,  std::string dealer_ID)
 {

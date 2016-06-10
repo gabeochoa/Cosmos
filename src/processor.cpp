@@ -31,6 +31,7 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
 
     }else if(cmd == "LIST"){
         bool useFilter = false;
+        std::cout << strToProc.size() << std::endl;
         if(strToProc.size() == 3 )
         {
             database.filterData(strToProc[2], "");
@@ -45,7 +46,7 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
         std::vector<Order> found = database.findData(useFilter);
 
         for(Order s : found)
-            std::cout << s << std::endl;
+            std::cout <<"\t" <<  s << std::endl;
     }else if(cmd == "AGRESS"){
     }
 
