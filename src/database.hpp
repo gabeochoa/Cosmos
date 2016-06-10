@@ -5,7 +5,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include "order.h"
+#include "order.hpp"
 
 /*
     This class exists to blackbox
@@ -30,7 +30,6 @@ class Database
 };
 
 #endif //DATABASE_H
-
 
 Database::Database()
 {

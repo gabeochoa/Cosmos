@@ -1,13 +1,20 @@
-CPP_FILES := $(wildcard src/*.cpp)
-OBJ_FILES := $(addprefix obj/,$(notdir $(CPP_FILES:.cpp=.o)))
-LD_FLAGS := 
-CC_FLAGS := -std=c++11 -g 
+CC = clang++
+CFLAGS := -std=c++11 -g 
+EXEC = cms
+SRC_DIR = src
+OBJ = obj/main.o obj/processor.o
 
-main.exe: $(OBJ_FILES)
-	clang++ $(LD_FLAGS) -o $@ $^
+all: 
+	make clean
+	make cms
 
-obj/%.o: src/%.cpp
-	clang++ $(CC_FLAGS) -c -o $@ $<
+obj/main.o: src/main.cpp
+	$(CC) $(CFLAGS) $(CFLAGS) -c -o $@ $<
+obj/processor.o: src/processor.cpp
+	$(CC) $(CFLAGS) $(CFLAGS) -c -o $@ $<
+
+$(EXEC): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(EXEC)
 
 clean:
-	rm obj/*.o main.exe
+	-rm -rf obj/*.o cms
