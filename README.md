@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/gabeochoa/BBG-CMS/raw/assets/cosmos.png">
+</p>
+
 #**C**os**M**o**S**
 
 Description
