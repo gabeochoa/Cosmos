@@ -11,20 +11,27 @@ void Database::addData(Order data)
     mydata.push_back(data);
 }
 
-void Database::removeData(std::string dealer, Order data)
-{
-    for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
-    {
-        if(*iter == data)
-            if(data.getDealer() == dealer)
-                mydata.erase(iter);
-            //else
-                //ERROR Cannot remove another dealers order
-                //return;
-    }
-    //else
-        //Data not found
-}
+// void Database::removeData(std::string dealer, Order data)
+// {
+//     for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
+//     {
+//         if(*iter == data)
+//         {
+//             if(data.getDealer() == dealer)
+//             {
+//                 mydata.erase(iter);
+//                 return;
+//             }
+//             else
+//             {
+//                 std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
+//                 return;
+//             }
+//         }
+//     }
+//     //else
+//         //Data not found
+// }
 
 void Database::removeData(std::string dealer, int id)
 {
@@ -34,12 +41,13 @@ void Database::removeData(std::string dealer, int id)
         {
             if(iter->getDealer() == dealer)
             { 
-               mydata.erase(iter);
+                mydata.erase(iter);
+                info.insert(std::pair<int, OrderInfo::OrderStatus>(id,  OrderInfo::OrderStatus::REVOKED));
                 return;
             }
             else
             {
-                std::cout << "ERROR Cannot remove another dealers order" << std::endl;
+                std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
                 return; 
             }
         }
@@ -50,15 +58,21 @@ bool Database::aggress(std::string dealer, int order_id, int quantity)
 {
     std::vector<Order>::iterator x = getOrderFromID(order_id);
     if(x == mydata.end())
-        return false;
-
-    if(quantity > x->getAmount())
     {
+        std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNKNOWN_ORDER) << std::endl;
+        return false;
+    }
+    if(quantity > x->getAmount())
+    { 
+        //TODO This might need to be changed??
+        std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::INVALID_MESSAGE) << std::endl;
         return false;
     }
     //TODO literally no other checks?
+    info.insert(std::pair<int, OrderInfo::OrderStatus>(order_id,  OrderInfo::OrderStatus::FILLED));
     x->removeAmount(quantity);
 
+    //std::cout << OrderInfo::GenerateOutput(OrderInfo::OrderStatus::REPORT) << std::endl;    
     return true;
 }
 
@@ -99,22 +113,29 @@ void Database::getStatus(std::string dealer, int orderid)
     std::vector<Order>::iterator iter = getOrderFromID(orderid);
     if(iter == mydata.end())
     {
-        std::cout << "ERROR: Invalid OrderID" << std::endl;
+        if(!info.count(orderid))
+        {
+            std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNKNOWN_ORDER) << std::endl;
+        }
+        else
+        {
+            std::cout << OrderInfo::GenerateOutput(orderid, info[orderid]) << std::endl;
+        }
         return;
     }
     if(iter->getDealer() != dealer)
     {
-        std::cout << "ERROR: Can only check status on own Orders" << std::endl;
+        std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
         return;
     }
 
     if(iter->getAmount() == 0)
     {
-        std::cout << "FILLED: Remaining amount zero" << std::endl;
+        std::cout << OrderInfo::GenerateOutput(iter->getOrderId(), OrderInfo::OrderStatus::FILLED) << std::endl;
     }
     else if(iter->getAmount() > 0)
     {
-        std::cout << *iter << std::endl;  
+        std::cout << OrderInfo::GenerateOutput(*iter, OrderInfo::OrderStatus::INFO) << std::endl;
     }
 }
 

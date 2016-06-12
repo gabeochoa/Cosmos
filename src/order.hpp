@@ -49,7 +49,6 @@ class Order
         }
 };
 
-#endif //ORDER_H
 
 inline bool operator< (const Order& lhs, const Order& rhs)
 {
@@ -84,3 +83,5 @@ inline bool operator!= (const Order& lhs, const Order& rhs){ return !(rhs == lhs
 
 
 
+
+#endif //ORDER_H

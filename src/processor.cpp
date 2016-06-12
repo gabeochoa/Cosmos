@@ -32,7 +32,7 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
         database.getStatus(strToProc[0],stoi(strToProc[2]));
     }else if(cmd == "LIST"){
         bool useFilter = false;
-        std::cout << strToProc.size() << std::endl;
+        //std::cout << strToProc.size() << std::endl;
         if(strToProc.size() == 3 )
         {
             database.filterData(strToProc[2], "");
@@ -53,12 +53,7 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
         strToProc.erase(strToProc.begin());//erase cmd
         for(int i =0; i<strToProc.size(); i+=2)
         {
-            bool err = database.aggress(dealer, stoi(strToProc[i]), stoi(strToProc[i+1]));
-            if(!err)
-                std::cout << "error" << std::endl;
-            else
-                std::cout << "agress processed" << std::endl;
-                //TODO make more verbose error messages
+            database.aggress(dealer, stoi(strToProc[i]), stoi(strToProc[i+1]));
         }
     }
     //Order(std::string dealer_in, std::string side_in, std::string commodity_in, 

@@ -5,8 +5,9 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <map>
 #include "order.hpp"
-
+#include "orderinfo.hpp"
 /*
     This class exists to blackbox
     the process that would be calling a db
@@ -20,6 +21,7 @@ class Database
     private:
         std::vector<Order> mydata;       
         std::vector<Order> filteredData;
+        std::map<int, OrderInfo::OrderStatus> info;
         int orderID = 0;
     public:
         Database();

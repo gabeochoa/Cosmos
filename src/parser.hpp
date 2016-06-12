@@ -3,9 +3,9 @@
 #include <vector>
 #include <stdexcept>
 
-class ParseException: public std::runtime_error{
+class ParseException : public std::runtime_error{
     public:
-        ParseException():runtime_error("Parse Error"){}
+        ParseException():runtime_error("INVALID_MESSAGE"){}
         ParseException(std::string msg):runtime_error(msg.c_str()){}
 };
 
@@ -44,7 +44,7 @@ inline bool isInteger(const std::string & s)
 
 
 void error(void) { 
-    printf("parse error\n");
+    std::cout << "INVALID_MESSAGE" << std::endl;
     throw new ParseException();
 }
 
