@@ -21,7 +21,7 @@ Commodities date back to ancient Sumer. Trade wasn't complicated back then, and 
 Cosmos is here to fix that. 
 
 
-<sup>[1] This program was build as a warmup exercise for Bloomberg's FT Training Program.</sup>
+<sup>[1] This program was built as a warmup exercise for Bloomberg's FT Training Program. ie. not real</sup>
 
 Build/Run
 -----
