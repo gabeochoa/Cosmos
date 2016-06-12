@@ -45,9 +45,8 @@ make
 ./client localhost [port-num] < notes/test2.txt
 ```
 
-Design
+File Layout
 -----
-####File Layout
 
 - client/
 	- contains sample client application
