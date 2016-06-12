@@ -4,6 +4,7 @@
 #include <string> 
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 class Order 
 {
@@ -37,12 +38,23 @@ class Order
         int getAmount() const{return amount;}
         double getPrice() const{return price;}
         void removeAmount(int quant) {amount -= quant;}
+        std::string getString()
+        {
+            std::stringstream os;
+            os << orderid << ", ";
+            os << dealer << ", ";
+            os << side << ", ";
+            os << commodity << ", ";
+            os << amount << ", ";
+            os << price;
+            return os.str();
+        }
         friend std::ostream& operator<<(std::ostream& os, const Order& ord)
         {
+            os << ord.orderid << ", ";
             os << ord.dealer << ", ";
             os << ord.side << ", ";
             os << ord.commodity << ", ";
-            os << ord.orderid << ", ";
             os << ord.amount << ", ";
             os << ord.price;
             return os;

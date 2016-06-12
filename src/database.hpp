@@ -34,7 +34,8 @@ class Database
         std::vector<Order>::iterator getOrderFromID(int);
         void getStatus(std::string, int);
         int getOrderID();
-        void print();
+        void print(std::vector<Order> orders);
+        void print(Order orders);
 };
 
 #endif //DATABASE_H

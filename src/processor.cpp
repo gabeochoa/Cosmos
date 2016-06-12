@@ -45,9 +45,8 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
         }
 
         std::vector<Order> found = database.findData(useFilter);
+        database.print(found);
 
-        for(Order s : found)
-            std::cout <<"\t" <<  s << std::endl;
     }else if(cmd == "AGGRESS"){
         strToProc.erase(strToProc.begin());//erase dealer
         strToProc.erase(strToProc.begin());//erase cmd

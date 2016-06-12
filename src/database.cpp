@@ -65,14 +65,18 @@ bool Database::aggress(std::string dealer, int order_id, int quantity)
     if(quantity > x->getAmount())
     { 
         //TODO This might need to be changed??
-        std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::INVALID_MESSAGE) << std::endl;
+        std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
         return false;
     }
     //TODO literally no other checks?
     info.insert(std::pair<int, OrderInfo::OrderStatus>(order_id,  OrderInfo::OrderStatus::FILLED));
     x->removeAmount(quantity);
 
-    //std::cout << OrderInfo::GenerateOutput(OrderInfo::OrderStatus::REPORT) << std::endl;    
+    std::cout << OrderInfo::GenerateOutput(
+        "BOUGHT", 
+        quantity, 
+        *x,
+        OrderInfo::OrderStatus::REPORT) << std::endl;    
     return true;
 }
 
@@ -139,17 +143,13 @@ void Database::getStatus(std::string dealer, int orderid)
     }
 }
 
-void Database::print()
+void Database::print(std::vector<Order> orders)
 {
-    std::cout << "----DATABASE-----" << std::endl;
-       
-    for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
-    {
-        std::cout << "---------" << std::endl;
-        std::cout << *iter << std::endl;
-
-    }
-    std::cout << "----DATABASE END-----" << std::endl; 
+    std::cout << OrderInfo::GenerateOutput(orders, OrderInfo::OrderStatus::LIST) << std::endl;
+}
+void Database::print(Order order)
+{
+    std::cout << OrderInfo::GenerateOutput(order, OrderInfo::OrderStatus::INFO) << std::endl;
 }
 
 

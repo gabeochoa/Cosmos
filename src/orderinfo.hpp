@@ -67,7 +67,7 @@ class OrderInfo
             {
                 return error();
             }
-            return "";
+            return order.getString();
 
         }
         static std::string GenerateOutput(std::vector<Order> orders, OrderStatus status)
@@ -77,7 +77,26 @@ class OrderInfo
             {
                 return error();
             } 
-            return "";
+            std::string ret;
+
+            for(Order order : orders)
+                ret += order.getString() + "\n";
+            ret += "END OF LIST";
+            return ret;
+        }
+        static std::string GenerateOutput(std::string action, int quant, Order order, OrderStatus status)
+        {
+           //Valid for REPORT
+            if(status != OrderStatus::REPORT)
+            {
+                return error();
+            } 
+            //TODO: fix price to 2 decimal points
+            return action + " " + 
+                   std::to_string(quant) + " " + 
+                   order.getCommodity() + " @ " +
+                   std::to_string(order.getPrice()) + " FROM " +
+                   order.getDealer();
         }
 };
 
