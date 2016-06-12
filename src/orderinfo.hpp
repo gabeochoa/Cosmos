@@ -62,13 +62,12 @@ class OrderInfo
         }
         static std::string GenerateOutput(Order order, OrderStatus status)
         {
-            //Valid for INFO 
-            if(status != OrderStatus::INFO)
+            //Valid for INFO, POST
+            if(status != OrderStatus::INFO && status != OrderStatus::POST)
             {
                 return error();
             }
-            return order.getString();
-
+            return order.getString() + (status == OrderStatus::POST? " HAS BEEN POSTED" : "");
         }
         static std::string GenerateOutput(std::vector<Order> orders, OrderStatus status)
         {
@@ -92,11 +91,15 @@ class OrderInfo
                 return error();
             } 
             //TODO: fix price to 2 decimal points
-            return action + " " + 
-                   std::to_string(quant) + " " + 
-                   order.getCommodity() + " @ " +
-                   std::to_string(order.getPrice()) + " FROM " +
-                   order.getDealer();
+            std::stringstream os;
+            os << action << " "; 
+            os << std::to_string(quant) << " "; 
+            os << order.getCommodity() << " @ "; 
+            os.precision(2);
+            os << std::fixed;
+            os << order.getPrice() << " FROM ";
+            os << order.getDealer();
+            return os.str();
         }
 };
 

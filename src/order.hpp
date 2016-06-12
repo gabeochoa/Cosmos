@@ -41,21 +41,25 @@ class Order
         std::string getString()
         {
             std::stringstream os;
-            os << orderid << ", ";
-            os << dealer << ", ";
-            os << side << ", ";
-            os << commodity << ", ";
-            os << amount << ", ";
+            os << orderid << " ";
+            os << dealer << " ";
+            os << side << " ";
+            os << commodity << " ";
+            os << amount << " ";
+            os.precision(2);
+            os << std::fixed;
             os << price;
             return os.str();
         }
         friend std::ostream& operator<<(std::ostream& os, const Order& ord)
         {
-            os << ord.orderid << ", ";
-            os << ord.dealer << ", ";
-            os << ord.side << ", ";
-            os << ord.commodity << ", ";
-            os << ord.amount << ", ";
+            os << ord.orderid << " ";
+            os << ord.dealer << " ";
+            os << ord.side << " ";
+            os << ord.commodity << " ";
+            os << ord.amount << " ";
+            os.precision(2);
+            os << std::fixed;
             os << ord.price;
             return os;
         }

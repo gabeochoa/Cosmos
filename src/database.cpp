@@ -9,6 +9,8 @@ void Database::addData(Order data)
 {
     //just add the data in this case
     mydata.push_back(data);
+    std::cout << OrderInfo::GenerateOutput(data, OrderInfo::OrderStatus::POST) << std::endl;
+                
 }
 
 // void Database::removeData(std::string dealer, Order data)
@@ -43,6 +45,7 @@ void Database::removeData(std::string dealer, int id)
             { 
                 mydata.erase(iter);
                 info.insert(std::pair<int, OrderInfo::OrderStatus>(id,  OrderInfo::OrderStatus::REVOKED));
+                std::cout << OrderInfo::GenerateOutput(id, OrderInfo::OrderStatus::REVOKED) << std::endl;
                 return;
             }
             else
