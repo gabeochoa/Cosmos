@@ -65,14 +65,14 @@ int main(int argc, char** argv)
     }
     else if(type == "ext2")
     {
-        return 2;
-        // if (argc < 3) 
-        // {
-        //     fprintf(stderr,"ERROR, no port provided\n");
-        //     fprintf(stderr,"%s\n", usagestring);
-        //     exit(1);
-        // }
-        // runSocket2(atoi(argv[2]));
+        //return 2;
+        if (argc < 3) 
+        {
+            fprintf(stderr,"ERROR, no port provided\n");
+            fprintf(stderr,"%s\n", usagestring);
+            exit(1);
+        }
+        runSocket2(atoi(argv[2]));
     }
 }
 
