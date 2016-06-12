@@ -133,10 +133,11 @@ int make_socket (uint16_t port)
 }
 
 #define MAXMSG  255
-
+std::vector<int> clay;
 
 int handle_client (int filedes)
 {
+    std::cout << "MESSAGE FROM " << filedes << std::endl;
     char buffer[MAXMSG];
     bzero(buffer,256);
     int nbytes = recv(filedes,buffer, MAXMSG, 0);
@@ -149,6 +150,21 @@ int handle_client (int filedes)
     else if (nbytes == 0)
     {
         /* End-of-file. */
+        auto iter = std::find(clay.begin(), clay.end(), filedes);
+        if(iter != clay.end())
+        {
+            //std::cout << "ERASE" << std::endl;
+            clay.erase(iter);
+        }
+        else
+        {
+            // for(int x : clay)
+            //     std::cout << x << ". ";
+            // std::cout << std::endl;
+        }
+        if(clay.empty())
+            exit(0);
+        //std::cout << clay.size() << std::endl;
         return -1;
     }
     else
@@ -215,6 +231,7 @@ int runSocket2(int portno)
                     perror ("accept");
                     exit (EXIT_FAILURE);
                 }
+    
                 fprintf (stderr,
                     "Server: connect from host %s, port %hd.\n",
                     inet_pton (AF_INET, "localhost",  &clientname.sin_addr),
@@ -223,6 +240,8 @@ int runSocket2(int portno)
             }
             else
             {
+                if(std::find(clay.begin(), clay.end(), i) == clay.end())
+                    clay.push_back(i);
                 /* Data arriving on an already-connected socket. */
                 if (handle_client (i) < 0)
                 {
