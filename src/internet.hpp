@@ -11,13 +11,46 @@
 #include <cstring>
 #include <unistd.h>
 
+int processSocket(int clientsock)
+{
+    std::string output ="";
+    int n = 1;
+    char buffer[256];
+    if (clientsock < 0) 
+    {
+        std::cout << "ERROR on accept" << std::endl;
+        return 1;
+    }
+    while(n)
+    {
+        bzero(buffer,256);
+        n = recv(clientsock,buffer,255, 0);
+        if(n == 0)
+            continue;
+        if (n < 0)
+        {
+            std::cout << "after recv" << std::endl;
+            std::cout << "ERROR reading from socket" << std::endl;
+            return 1;
+        }
+        //printf("Here is the message:\n %s\n",buffer);
+        output = runCommand(buffer);
+        n = send(clientsock,output.c_str(), output.size(), 0);
+        if (n < 0)
+        {
+            std::cout << "ERROR writing to socket" << std::endl;
+            return 1;
+        }
+        output.clear();
+    }
+    return 0;
+}
+
 int runSocket1(int portno)
 {
     int sockfd, newsockfd;
     socklen_t clilen;
-    char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
-    int n = 1;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     int a = 1;
     setsockopt(sockfd,SOL_SOCKET,SO_REUSEADDR,&a,sizeof(int));
@@ -37,7 +70,6 @@ int runSocket1(int portno)
         std::cout << "ERROR on binding" << std::endl;
         return 1;
     }
-    std::string output ="";
     listen(sockfd,1);
     clilen = sizeof(cli_addr);
     
@@ -45,33 +77,13 @@ int runSocket1(int portno)
              (struct sockaddr *) &cli_addr, 
              &clilen));
     close(sockfd);
-    if (newsockfd < 0) 
+    
+    if (processSocket(newsockfd) < 0) 
     {
-        std::cout << "ERROR on accept" << std::endl;
+        std::cout << "ERROR processing" << std::endl;
         return 1;
     }
-    while(n)
-    {
-        bzero(buffer,256);
-        n = recv(newsockfd,buffer,255, 0);
-        if(n == 0)
-            continue;
-        if (n < 0)
-        {
-            std::cout << "after recv" << std::endl;
-            std::cout << "ERROR reading from socket" << std::endl;
-            return 1;
-        }
-        //printf("Here is the message:\n %s\n",buffer);
-        output = runCommand(buffer);
-        n = send(newsockfd,output.c_str(), output.size(), 0);
-        if (n < 0)
-        {
-            std::cout << "ERROR writing to socket" << std::endl;
-            return 1;
-        }
-        output.clear();
-    }
+
     close(newsockfd);
     return 0; 
 }
