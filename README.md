@@ -8,13 +8,13 @@
 Description
 -----
 
-Cosmos is focused on making it easy to find, buy, and sell commodities contracts. 
+Cosmos is focused on making it easy to find and trade commodities. 
 
 ------
 
-When it comes to commodities, the current systems are reserved for financial experts and professionals. 
+When it comes to commodities, only financial experts and professionals can participate. 
 
-Cosmos is changing that by allowing the general public to make their own decisions in the trillion dollar industry that is commodities. 
+Cosmos is changing that, by allowing anyone to trade in this trillion dollar industry. 
 
 Commodities date back to ancient Sumer. Trade wasn't complicated back then, and it shouldn't be now.
 
