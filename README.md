@@ -45,23 +45,6 @@ make
 ./client localhost [port-num] < notes/test2.txt
 ```
 
-Extensions
------
-
-####Extension 1
-Modify the trading system to accept communication over a TCP socket. The port to listen on will be supplied as a command line argument. It should only accept 1 connection, and terminate when that connection is closed.
-
-####Extension 2
-
-Modify the trading system to handle more than one connection concurrently. It should remain idle until the first connection. Once all connections have been closed then the program should terminate. 
-
-Implementation
-------
-
-- [x] Base Program
-- [x] Extension 1
-- [ ] Extension 2
-
 Design
 -----
 ####File Layout
