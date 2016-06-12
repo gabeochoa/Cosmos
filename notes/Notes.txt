@@ -16,7 +16,7 @@ REVOKE
 - Removes an order from the "wall" by [Order ID]
 - Only the dealer who originally entered the order is allowed to revoke the order.
 
-Output: if the order has been successfully removed, a REVOKED message. Otherwise an ERROR message
+Output: if the order has been successfully removed, a REVOKED message. Otherwise an REVOKED message
 
 CHECK
 - Returns status of an order
