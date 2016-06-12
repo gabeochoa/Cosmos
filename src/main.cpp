@@ -46,7 +46,7 @@ std::vector<std::string> temp;
 Database database;
 Parser parser;
 
-char usagestring[] = "Usage:\n./cms base\n./cms ext1 [port]";
+char usagestring[] = "Usage: ./cms base | ./cms ext1 [port] | ./cms ext1 [port]";
 
 int main(int argc, char** argv) 
 {
