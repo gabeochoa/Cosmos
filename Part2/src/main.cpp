@@ -16,16 +16,6 @@
 #include <cstring>
 #include <unistd.h>
 
-void error(const char *msg)
-{
-    perror(msg);
-    std::cout << "SDLKDJS" << std::endl;
-    exit(1);
-}
-void cleanerror(const char *msg)
-{
-    perror(msg);
-}
 
 std::string runCommand(std::string command);
 int base();
@@ -79,7 +69,7 @@ int runSocket1(int portno)
     setsockopt(sockfd,SOL_SOCKET,SO_KEEPALIVE,&a,sizeof(int));
     if (sockfd < 0)
     {
-        cleanerror("ERROR opening socket");
+        std::cout << "ERROR opening socket" << std::endl;
         return 1;
     }
     bzero((char *) &serv_addr, sizeof(serv_addr));
@@ -89,11 +79,11 @@ int runSocket1(int portno)
     int err = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
     if (err < 0) 
     {
-        cleanerror("ERROR on binding");
+        std::cout << "ERROR on binding" << std::endl;
         return 1;
     }
     std::string output ="";
-    listen(sockfd,5);
+    listen(sockfd,1);
     clilen = sizeof(cli_addr);
     
     int cont = (newsockfd = accept(sockfd, 
@@ -104,17 +94,19 @@ int runSocket1(int portno)
     {
         if (newsockfd < 0) 
         {
-            cleanerror("ERROR on accept");
+            std::cout << "ERROR on accept" << std::endl;
             return 1;
         }
-
         while(n)
         {
             bzero(buffer,256);
             n = recv(newsockfd,buffer,255, 0);
+            if(n == 0)
+                continue;
             if (n < 0)
             {
-                cleanerror("ERROR reading from socket");
+                std::cout << "after recv" << std::endl;
+                std::cout << "ERROR reading from socket" << std::endl;
                 return 1;
             }
             //printf("Here is the message:\n %s\n",buffer);
@@ -122,12 +114,11 @@ int runSocket1(int portno)
             n = send(newsockfd,output.c_str(), output.size(), 0);
             if (n < 0)
             {
-                cleanerror("ERROR writing to socket");
+                std::cout << "ERROR writing to socket" << std::endl;
                 return 1;
             }
             output.clear();
         }
-        n = 0;
         close(newsockfd);
         cont = (newsockfd = accept(sockfd, 
              (struct sockaddr *) &cli_addr, &clilen));
