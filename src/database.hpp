@@ -24,11 +24,13 @@ class Database
     public:
         Database();
         void addData(Order);
-        void removeData(Order);
+        void removeData(std::string, Order);
+        void removeData(std::string, int);
         bool aggress(std::string, int, int);
         std::vector<Order> findData(bool);
         void filterData(std::string, std::string);
         std::vector<Order>::iterator getOrderFromID(int);
+        void getStatus(std::string, int);
         int getOrderID();
         void print();
 };

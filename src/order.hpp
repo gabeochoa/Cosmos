@@ -15,12 +15,21 @@ class Order
         int amount;
         double price;
 
-    public:
         Order(std::string dealer_in, std::string side_in, std::string commodity_in, 
                 int orderid_in, int amount_in, double price_in):
         dealer(dealer_in), side(side_in), commodity(commodity_in), 
                 orderid(orderid_in), amount(amount_in), price(price_in)
         {}
+
+    public:
+        //TODO: dont allow the processor to get the orderid?
+        //      have the order do it?
+        static Order createOrder(std::string dealer_in, std::string side_in, std::string commodity_in, 
+                int orderid_in, int amount_in, double price_in)
+        {
+            Order o(dealer_in, side_in, commodity_in, orderid_in, amount_in, price_in);
+            return o;
+        }
         std::string getDealer() const{return dealer;}
         std::string getSide() const{return side;}
         std::string getCommodity() const{return commodity;}
@@ -70,6 +79,8 @@ inline bool operator> (const Order& lhs, const Order& rhs){ return rhs < lhs; }
 inline bool operator<=(const Order& lhs, const Order& rhs){ return !(lhs > rhs); }
 inline bool operator>=(const Order& lhs, const Order& rhs){ return !(lhs < rhs); }
 
+inline bool operator== (const Order& lhs, const Order& rhs){ return !(lhs < rhs) && !(lhs>rhs); }
+inline bool operator!= (const Order& lhs, const Order& rhs){ return !(rhs == lhs); }
 
 
 

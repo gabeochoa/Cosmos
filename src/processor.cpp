@@ -11,7 +11,7 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
     //    std::cout << s << std::endl;
     std::string cmd = strToProc[1];
 
-    std::string dealer = "N/A";
+    std::string dealer = strToProc[0];
     std::string side = "N/A";
     std::string commodity = "N/A"; 
     int orderid =-1, amount=-1;
@@ -19,16 +19,17 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
 
     if(cmd == "POST")
     {
-        dealer = strToProc[0];
         side = strToProc[2];
         commodity =  strToProc[3]; 
         orderid = database.getOrderID();
         amount=stoi(strToProc[4]);
         price =stof(strToProc[5]);
-        Order o(dealer, side, commodity, orderid, amount, price);
+        Order o = Order::createOrder(dealer, side, commodity, orderid, amount, price);
         database.addData(o);
-    }else if(cmd == "REVOKE" || cmd == "CHECK"){
-
+    }else if(cmd == "REVOKE"){
+        database.removeData(strToProc[0],stoi(strToProc[2]));
+    }else if(cmd == "CHECK"){
+        database.getStatus(strToProc[0],stoi(strToProc[2]));
     }else if(cmd == "LIST"){
         bool useFilter = false;
         std::cout << strToProc.size() << std::endl;
@@ -48,7 +49,6 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
         for(Order s : found)
             std::cout <<"\t" <<  s << std::endl;
     }else if(cmd == "AGGRESS"){
-        std::string dealer = strToProc[0];
         strToProc.erase(strToProc.begin());//erase dealer
         strToProc.erase(strToProc.begin());//erase cmd
         for(int i =0; i<strToProc.size(); i+=2)

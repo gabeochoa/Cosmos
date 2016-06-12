@@ -11,12 +11,38 @@ void Database::addData(Order data)
     mydata.push_back(data);
 }
 
-void Database::removeData(Order data)
+void Database::removeData(std::string dealer, Order data)
 {
     for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
     {
-        //if(*iter == data)
-        //    mydata.erase(iter);
+        if(*iter == data)
+            if(data.getDealer() == dealer)
+                mydata.erase(iter);
+            //else
+                //ERROR Cannot remove another dealers order
+                //return;
+    }
+    //else
+        //Data not found
+}
+
+void Database::removeData(std::string dealer, int id)
+{
+    for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
+    {
+        if(iter->getOrderId() == id)
+        {
+            if(iter->getDealer() == dealer)
+            { 
+               mydata.erase(iter);
+                return;
+            }
+            else
+            {
+                std::cout << "ERROR Cannot remove another dealers order" << std::endl;
+                return; 
+            }
+        }
     }
 }
 
@@ -65,6 +91,31 @@ std::vector<Order>::iterator Database::getOrderFromID(int id)
         if(iter->getOrderId() == id)
             return iter;
     return mydata.end();
+}
+
+void Database::getStatus(std::string dealer, int orderid)
+{
+    //TODO: create some kind of 'info' struct to pass this info
+    std::vector<Order>::iterator iter = getOrderFromID(orderid);
+    if(iter == mydata.end())
+    {
+        std::cout << "ERROR: Invalid OrderID" << std::endl;
+        return;
+    }
+    if(iter->getDealer() != dealer)
+    {
+        std::cout << "ERROR: Can only check status on own Orders" << std::endl;
+        return;
+    }
+
+    if(iter->getAmount() == 0)
+    {
+        std::cout << "FILLED: Remaining amount zero" << std::endl;
+    }
+    else if(iter->getAmount() > 0)
+    {
+        std::cout << *iter << std::endl;  
+    }
 }
 
 void Database::print()
