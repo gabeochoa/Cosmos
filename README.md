@@ -1,6 +1,7 @@
 <p align="center">
-  <img src="https://github.com/gabeochoa/BBG-CMS/raw/notes/cosmos.png">
+  <img src="https://raw.githubusercontent.com/gabeochoa/BBG-CMS/master/notes/cosmos.png">
 </p>
+
 
 #**C**os**M**o**S**
 
