@@ -40,7 +40,10 @@ int main(int argc, char** argv)
             fprintf(stderr,"ERROR, no port provided\n");
             exit(1);
         }
-        runSocket1(atoi(argv[2]));
+        while(true)
+        {
+           runSocket1(atoi(argv[2]));
+        }
     }
     else if(type == "ext2")
     {
@@ -87,34 +90,39 @@ int runSocket1(int portno)
              (struct sockaddr *) &cli_addr, 
              &clilen));
     close(sockfd);
-    if (newsockfd < 0) 
+    while (cont >= 0)
     {
-        std::cout << "ERROR on accept" << std::endl;
-        return 1;
-    }
-    while(n)
-    {
-        bzero(buffer,256);
-        n = recv(newsockfd,buffer,255, 0);
-        if(n == 0)
-            continue;
-        if (n < 0)
+        if (newsockfd < 0) 
         {
-            std::cout << "after recv" << std::endl;
-            std::cout << "ERROR reading from socket" << std::endl;
+            std::cout << "ERROR on accept" << std::endl;
             return 1;
         }
-        //printf("Here is the message:\n %s\n",buffer);
-        output = runCommand(buffer);
-        n = send(newsockfd,output.c_str(), output.size(), 0);
-        if (n < 0)
+        while(n)
         {
-            std::cout << "ERROR writing to socket" << std::endl;
-            return 1;
+            bzero(buffer,256);
+            n = recv(newsockfd,buffer,255, 0);
+            if(n == 0)
+                continue;
+            if (n < 0)
+            {
+                std::cout << "after recv" << std::endl;
+                std::cout << "ERROR reading from socket" << std::endl;
+                return 1;
+            }
+            //printf("Here is the message:\n %s\n",buffer);
+            output = runCommand(buffer);
+            n = send(newsockfd,output.c_str(), output.size(), 0);
+            if (n < 0)
+            {
+                std::cout << "ERROR writing to socket" << std::endl;
+                return 1;
+            }
+            output.clear();
         }
-        output.clear();
+        close(newsockfd);
+        cont = (newsockfd = accept(sockfd, 
+             (struct sockaddr *) &cli_addr, &clilen));
     }
-    close(newsockfd);
     return 0; 
 }
 

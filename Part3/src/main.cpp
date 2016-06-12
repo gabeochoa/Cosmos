@@ -5,17 +5,16 @@
 #include "database.hpp"
 
 //TCP Headers
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h> 
-#include <sys/socket.h>
-#include <netinet/in.h>
 #include <cstdlib>
-#include <cstring>
-#include <unistd.h>
+#include <deque>
+#include <iostream>
+#include <list>
+#include <memory>
+#include <set>
+#include <utility>
+#include <boost/asio.hpp>
 
+using boost::asio::ip::tcp;
 
 std::string runCommand(std::string command);
 int base();
@@ -24,6 +23,90 @@ int runSocket2(int portno);
 
 std::vector<std::string> temp;
 Database database;
+
+
+std::string make_string(boost::asio::streambuf& streambuf)
+{
+ return {buffers_begin(streambuf.data()), 
+         buffers_end(streambuf.data())};
+}
+class session
+  : public std::enable_shared_from_this<session>
+{
+    public:
+        session(tcp::socket socket)
+        : socket_(std::move(socket))
+        {
+        }
+
+        void start()
+        {
+            do_read();
+        }
+
+    private:
+        void do_read()
+        {
+            auto self(shared_from_this());
+            socket_.async_read_some(boost::asio::buffer(data_, max_length),
+            [this, self](boost::system::error_code ec, std::size_t length)
+            {
+                if (!ec)
+                {
+                    do_write();
+                }
+            });
+        }
+
+        void do_write()
+        {
+            std::string ret = runCommand(data_);
+            std::cout << ret << std::endl;
+
+            auto self(shared_from_this());
+            boost::asio::async_write(socket_, boost::asio::buffer(ret.c_str(), ret.size()),
+            [this, self](boost::system::error_code ec, std::size_t)
+            {
+                if (!ec)
+                {
+                    do_read();
+                }
+            });
+        }
+
+    tcp::socket socket_;
+    enum { max_length = 255 };
+    char data_[max_length];
+};
+
+class server
+{
+    public:
+        server(boost::asio::io_service& io_service, short port)
+        : acceptor_(io_service, tcp::endpoint(tcp::v4(), port)),
+        socket_(io_service)
+        {
+            do_accept();
+        }
+
+    private:
+        void do_accept()
+        {
+            acceptor_.async_accept(socket_,
+            [this](boost::system::error_code ec)
+            {
+                if (!ec)
+                {
+                    std::make_shared<session>(std::move(socket_))->start();
+                }
+                do_accept();
+            });
+        }
+
+    tcp::acceptor acceptor_;
+    tcp::socket socket_;
+};
+
 
 int main(int argc, char** argv) 
 {
@@ -54,7 +137,7 @@ int main(int argc, char** argv)
 }
 
 int runSocket1(int portno)
-{
+{/*
     int sockfd, newsockfd;
     socklen_t clilen;
     char buffer[256];
@@ -92,6 +175,7 @@ int runSocket1(int portno)
         std::cout << "ERROR on accept" << std::endl;
         return 1;
     }
+
     while(n)
     {
         bzero(buffer,256);
@@ -115,12 +199,23 @@ int runSocket1(int portno)
         output.clear();
     }
     close(newsockfd);
+    */
     return 0; 
 }
 
 
 int runSocket2(int portno)
 {
+    try
+    {
+        boost::asio::io_service io_service;
+        server s(io_service, portno);
+        io_service.run();
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << "Exception: " << e.what() << "\n";
+    }
     return 0;
 }
 
@@ -136,7 +231,7 @@ int base()
 std::string runCommand(std::string command)
 {
     Processor proc = Processor::getInstance();
-    std::cout << command << std::endl;
+    std::cout << "RUN COMMAND:" << command << std::endl;
     std::string output;
     if(isValid(output, command, temp))
     {
