@@ -1,4 +1,4 @@
-Gabriel Ochoa CMS
+Gabriel Ochoa Cosmos
 An electronic platform for trading commodities contracts
 
 base program and extensions one implemented
