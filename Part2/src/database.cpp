@@ -2,15 +2,14 @@
 
 Database::Database()
 {
-
+    logger = new Logger();
 }
 
 void Database::addData(Order data)
 {
     //just add the data in this case
     mydata.push_back(data);
-    std::cout << OrderInfo::GenerateOutput(data, OrderInfo::OrderStatus::POST) << std::endl;
-                
+    *logger << OrderInfo::GenerateOutput(data, OrderInfo::OrderStatus::POST) << std::endl;       
 }
 
 // void Database::removeData(std::string dealer, Order data)
@@ -26,7 +25,7 @@ void Database::addData(Order data)
 //             }
 //             else
 //             {
-//                 std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
+//                 *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
 //                 return;
 //             }
 //         }
@@ -45,12 +44,12 @@ void Database::removeData(std::string dealer, int id)
             { 
                 mydata.erase(iter);
                 info.insert(std::pair<int, OrderInfo::OrderStatus>(id,  OrderInfo::OrderStatus::REVOKED));
-                std::cout << OrderInfo::GenerateOutput(id, OrderInfo::OrderStatus::REVOKED) << std::endl;
+                *logger << OrderInfo::GenerateOutput(id, OrderInfo::OrderStatus::REVOKED) << std::endl;
                 return;
             }
             else
             {
-                std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
+                *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
                 return; 
             }
         }
@@ -62,20 +61,20 @@ bool Database::aggress(std::string dealer, int order_id, int quantity)
     std::vector<Order>::iterator x = getOrderFromID(order_id);
     if(x == mydata.end())
     {
-        std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNKNOWN_ORDER) << std::endl;
+        *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNKNOWN_ORDER) << std::endl;
         return false;
     }
     if(quantity > x->getAmount())
     { 
         //TODO This might need to be changed??
-        std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
+        *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
         return false;
     }
     //TODO literally no other checks?
     info.insert(std::pair<int, OrderInfo::OrderStatus>(order_id,  OrderInfo::OrderStatus::FILLED));
     x->removeAmount(quantity);
 
-    std::cout << OrderInfo::GenerateOutput(
+    *logger << OrderInfo::GenerateOutput(
         "BOUGHT", 
         quantity, 
         *x,
@@ -122,37 +121,47 @@ void Database::getStatus(std::string dealer, int orderid)
     {
         if(!info.count(orderid))
         {
-            std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNKNOWN_ORDER) << std::endl;
+            *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNKNOWN_ORDER) << std::endl;
         }
         else
         {
-            std::cout << OrderInfo::GenerateOutput(orderid, info[orderid]) << std::endl;
+            *logger << OrderInfo::GenerateOutput(orderid, info[orderid]) << std::endl;
         }
         return;
     }
     if(iter->getDealer() != dealer)
     {
-        std::cout << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
+        *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
         return;
     }
 
     if(iter->getAmount() == 0)
     {
-        std::cout << OrderInfo::GenerateOutput(iter->getOrderId(), OrderInfo::OrderStatus::FILLED) << std::endl;
+        *logger << OrderInfo::GenerateOutput(iter->getOrderId(), OrderInfo::OrderStatus::FILLED) << std::endl;
     }
     else if(iter->getAmount() > 0)
     {
-        std::cout << OrderInfo::GenerateOutput(*iter, OrderInfo::OrderStatus::INFO) << std::endl;
+        *logger << OrderInfo::GenerateOutput(*iter, OrderInfo::OrderStatus::INFO) << std::endl;
     }
 }
 
 void Database::print(std::vector<Order> orders)
 {
-    std::cout << OrderInfo::GenerateOutput(orders, OrderInfo::OrderStatus::LIST) << std::endl;
+    *logger << OrderInfo::GenerateOutput(orders, OrderInfo::OrderStatus::LIST) << std::endl;
 }
 void Database::print(Order order)
 {
-    std::cout << OrderInfo::GenerateOutput(order, OrderInfo::OrderStatus::INFO) << std::endl;
+    *logger << OrderInfo::GenerateOutput(order, OrderInfo::OrderStatus::INFO) << std::endl;
 }
 
+std::string Database::log()
+{
+    return logger->str();
+}
+
+void Database::clearLog()
+{
+    delete logger;
+    logger = new Logger();
+}
 

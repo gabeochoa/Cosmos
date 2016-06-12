@@ -8,6 +8,7 @@
 #include <map>
 #include "order.hpp"
 #include "orderinfo.hpp"
+#include "logger.hpp"
 /*
     This class exists to blackbox
     the process that would be calling a db
@@ -23,6 +24,7 @@ class Database
         std::vector<Order> filteredData;
         std::map<int, OrderInfo::OrderStatus> info;
         int orderID = 0;
+        Logger* logger;
     public:
         Database();
         void addData(Order);
@@ -36,6 +38,8 @@ class Database
         int getOrderID();
         void print(std::vector<Order> orders);
         void print(Order orders);
+        std::string log();
+        void clearLog();
 };
 
 #endif //DATABASE_H

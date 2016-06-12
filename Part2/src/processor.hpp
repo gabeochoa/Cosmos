@@ -6,12 +6,14 @@
 #include <vector>
 #include "database.hpp"
 
-class Processor 
+class Processor
 {
-    //private:
+    private:
+        Processor(){};
+        static Processor* _instance; 
     public:
-        Processor();
-        void run(Database&, std::vector<std::string>);
+        static Processor getInstance();
+        std::string run(Database&, std::vector<std::string>);
 };
 
 #endif //PROCESSOR_H

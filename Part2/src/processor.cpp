@@ -1,16 +1,17 @@
 #include "processor.hpp"
 
+Processor* Processor::_instance = NULL;
 
-Processor::Processor()
-{
+Processor Processor::getInstance()
+{ 
+    if (!_instance) 
+        _instance = new Processor();
+    return *_instance; 
 }
 
-void Processor::run(Database& database, std::vector<std::string> strToProc)
+std::string Processor::run(Database& database, std::vector<std::string> strToProc)
 {
-    //for(std::string s : strToProc)
-    //    std::cout << s << std::endl;
     std::string cmd = strToProc[1];
-
     std::string dealer = strToProc[0];
     std::string side = "N/A";
     std::string commodity = "N/A"; 
@@ -54,10 +55,7 @@ void Processor::run(Database& database, std::vector<std::string> strToProc)
         {
             database.aggress(dealer, stoi(strToProc[i]), stoi(strToProc[i+1]));
         }
-    }
-    //Order(std::string dealer_in, std::string side_in, std::string commodity_in, 
-    // int orderid_in, int amount_in, double price_in)
-    
-        
+    }  
+    return database.log();   
 }
 

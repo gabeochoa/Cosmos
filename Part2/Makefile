@@ -9,19 +9,22 @@ all:
 	make cms
 
 obj/main.o: src/main.cpp
-	$(CC) $(CFLAGS) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 obj/processor.o: src/processor.cpp
-	$(CC) $(CFLAGS) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 obj/database.o: src/database.cpp
-	$(CC) $(CFLAGS) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(EXEC): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(EXEC)
+	$(CC) $(CFLAGS) -o $(EXEC) $(OBJ)
 
 clean:
 	-rm -rf obj/*.o src/*.gch cms
 
 run:
 	./cms base < notes/testparser.txt
+
+runport:	
+	./cms ext1 1234

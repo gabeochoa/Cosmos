@@ -15,6 +15,8 @@ std::string valid_commodity[] = {"GOLD", "SILV", "PORK", "OIL", "RICE"};
 std::vector<std::string> output;
 std::string input = "";
 std::string token; 
+std::string errorstr; 
+
 
 /* declarations to allow arbitrary recursion */
 void raw(void);
@@ -44,7 +46,7 @@ inline bool isInteger(const std::string & s)
 
 
 void error(void) { 
-    std::cout << "INVALID_MESSAGE" << std::endl;
+    errorstr = "INVALID_MESSAGE";
     throw new ParseException();
 }
 
@@ -231,8 +233,9 @@ void parse() {
     }
 }
 
-bool isValid(std::string& myin, std::vector<std::string>& myout)
+bool isValid(std::string& err, std::string& myin, std::vector<std::string>& myout)
 {
+    errorstr.clear();
     input = myin;
     bool val = true;
     try
@@ -248,25 +251,9 @@ bool isValid(std::string& myin, std::vector<std::string>& myout)
     token = "";
     input = "";
     output.clear();
-
+    err = errorstr;
     return val;
 }
-
-// int main()
-// {
-//     for (std::string line; std::getline(std::cin, line);) {
-//         std::vector<std::string> ot;
-//         bool a = isValid(line, ot);
-//         if(!a)
-//         {
-//             std::cout << "NOT ";
-//         }
-//         std::cout << "VALID: " << line << std::endl;
-//         //std::cout << a << std::endl;
-//         //for(string s : ot)
-//         //    std::cout << s << std::endl;
-//     }
-// }
 
 
 
