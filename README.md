@@ -1,4 +1,6 @@
-[Logo](http://ochoag.com/cosmos/img/logo.png)
+<p align="center">
+  <img src="http://ochoag.com/cosmos/img/logo.png">
+</p>
 
 **C**os**M**o**S** is an electronic platform for trading commodities<sup>[1]</sup>
 
