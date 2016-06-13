@@ -1,7 +1,4 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/gabeochoa/BBG-CMS/master/notes/cosmos.png">
-</p>
-
+[Logo](http://ochoag.com/cosmos/img/logo.png)
 
 **C**os**M**o**S** is an electronic platform for trading commodities<sup>[1]</sup>
 
