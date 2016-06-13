@@ -13,8 +13,9 @@ Cosmos is focused on making it easy to find and trade commodities.
 
 When it comes to commodities, only financial experts and professionals can participate. **Cosmos** is changing that, by allowing anyone to trade in this trillion dollar industry. 
 
-Commodities date back to ancient Sumer. Trade wasn't complicated back **then**, and it shouldn't be **now**.
+Commodities date back to ancient Sumer. 
 
+Trade wasn't complicated back **then**, and it shouldn't be **now**.
 
 ####**Cosmos** is here to fix that. 
 
