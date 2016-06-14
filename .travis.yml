@@ -1,0 +1,18 @@
+language: cpp
+sudo: required
+compiler:
+- clang
+os:
+- linux
+- osx
+before_script: make clean
+script: make; make run;
+after_success: ls
+branches:
+  only:
+  - master
+notifications:
+  email: false
+  irc:
+    template:
+    - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"

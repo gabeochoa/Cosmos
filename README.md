@@ -1,9 +1,10 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/gabeochoa/BBG-CMS/master/notes/cosmos.png">
+  <img src="http://ochoag.com/cosmos/img/logo.png">
 </p>
 
-
 **C**os**M**o**S** is an electronic platform for trading commodities<sup>[1]</sup>
+[![Build Status](https://travis-ci.org/gabeochoa/Cosmos.svg?branch=master)](https://travis-ci.org/gabeochoa/Cosmos)
+[![GitHub release](https://img.shields.io/github/release/gabeochoa/cosmos.svg?maxAge=2592000)]()
 
 Description
 -----
@@ -12,13 +13,13 @@ Cosmos is focused on making it easy to find and trade commodities.
 
 ------
 
-When it comes to commodities, only financial experts and professionals can participate. 
+When it comes to commodities, only financial experts and professionals can participate. **Cosmos** is changing that, by allowing anyone to trade in this trillion dollar industry. 
 
-Cosmos is changing that, by allowing anyone to trade in this trillion dollar industry. 
+Commodities date back to ancient Sumer. 
 
-Commodities date back to ancient Sumer. Trade wasn't complicated back then, and it shouldn't be now.
+Trade wasn't complicated back **then**, and it shouldn't be **now**.
 
-Cosmos is here to fix that. 
+####**Cosmos** is here to fix that. 
 
 
 <sup>[1] This program was built as a warmup exercise for Bloomberg's FT Training Program. ie. not real</sup>

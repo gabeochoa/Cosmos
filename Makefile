@@ -11,9 +11,9 @@ TESTFLAGS = $(GTEST_DIR)/include -I.
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
 
-all:
-	make clean
-	make cms
+
+all: $(OBJ)
+	$(CC) $(CFLAGS) -o $(EXEC) $(OBJ)
 
 obj/main.o: src/main.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -26,10 +26,7 @@ obj/parser.o: src/parser.cpp
 
 obj/database.o: src/database.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
-
-$(EXEC): $(OBJ)
-	$(CC) $(CFLAGS) -o $(EXEC) $(OBJ)
-
+	
 clean:
 	-rm -rf obj/*.o src/*.gch cms
 
