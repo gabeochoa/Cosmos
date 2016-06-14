@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
-project(cms)
+project(cosmos)
 
 enable_language(C CXX)
 
@@ -13,7 +13,9 @@ endif()
 
 include_directories(inc)
 file(GLOB SOURCES "src/*.cpp")
-add_executable(cms ${SOURCES})
+#add_executable(cms ${SOURCES})
+add_library(cms ${SOURCES})
+
 
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
 include_directories(
@@ -32,10 +34,11 @@ endforeach()
 
 add_library(googletest ${GOOGLETEST_SOURCES})
 
+
+file(GLOB TESTSOURCES "test/*.cpp")
 add_executable(
     unit_tests
-    test/main.cpp
-    test/test_parser.cpp
+    ${TESTSOURCES}
     )
 
 add_dependencies(unit_tests googletest)
@@ -43,6 +46,7 @@ add_dependencies(unit_tests googletest)
 target_link_libraries(
     unit_tests
     googletest
+    cms
     pthread
     )
 
