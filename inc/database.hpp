@@ -22,8 +22,8 @@ class Database
     private:
         std::vector<Order> mydata;       
         std::vector<Order> filteredData;
-        std::map<int, OrderInfo::OrderStatus> info;
-        int orderID = 0;
+        std::map<int, StatusEnum::OrderStatus> info;
+        int orderID;
         Logger* logger;
     public:
         Database();

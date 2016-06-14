@@ -150,7 +150,7 @@ int handle_client (int filedes)
     else if (nbytes == 0)
     {
         /* End-of-file. */
-        auto iter = std::find(clay.begin(), clay.end(), filedes);
+        std::vector<int>::iterator iter = std::find(clay.begin(), clay.end(), filedes);
         if(iter != clay.end())
         {
             //std::cout << "ERASE" << std::endl;

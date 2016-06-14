@@ -4,13 +4,12 @@
 #include <string> 
 #include <iostream>
 #include <vector>
+#include "status-enum.hpp"
 #include "order.hpp"
+
 
 class OrderInfo 
 {
-    public:
-        enum OrderStatus {LIST, INFO, REPORT, FILLED, REVOKED, POST}; 
-        enum ErrorCode {UNAUTHORIZED, UNKNOWN_ORDER, UNKNOWN_COMMODITY, INVALID_MESSAGE}; 
     private:
         static std::string error()
         {
@@ -28,31 +27,31 @@ class OrderInfo
             ERROR = “UNAUTHORIZED” | “UNKNOWN_ORDER” | “UNKOWN_DEALER” | “UNKNOWN_COMMODITY” | “INVALID_MESSAGE”
             POST_CONFIRMATION = ORDER_INFO “HAS BEEN POSTED”
         */
-        static std::string GenerateOutput(ErrorCode status)
+        static std::string GenerateOutput(StatusEnum::ErrorCode status)
         {
             switch(status)
             {
-                case UNAUTHORIZED:
+                case StatusEnum::UNAUTHORIZED:
                     return "UNAUTHORIZED";
-                case UNKNOWN_ORDER:
+                case StatusEnum::UNKNOWN_ORDER:
                     return "UNKNOWN_ORDER";
-                case UNKNOWN_COMMODITY:
+                case StatusEnum::UNKNOWN_COMMODITY:
                     return "UNKNOWN_COMMODITY";
-                case INVALID_MESSAGE:
+                case StatusEnum::INVALID_MESSAGE:
                     return "INVALID_MESSAGE";
                 default:
                     return "INVALID ERROR";
             }
             return error();
         }
-        static std::string GenerateOutput(int orderid, OrderStatus status)
+        static std::string GenerateOutput(int orderid, StatusEnum::OrderStatus status)
         {
             //Valid for FILLED&REVOKED
             std::string ret = "";
             ret += std::to_string(orderid) + " HAS BEEN ";
-            if(status == OrderStatus::FILLED)
+            if(status == StatusEnum::FILLED)
                 ret += "FILLED";
-            else if(status == OrderStatus::REVOKED)
+            else if(status == StatusEnum::REVOKED)
                 ret += "REVOKED";
             else
             {
@@ -60,33 +59,33 @@ class OrderInfo
             }
             return ret;
         }
-        static std::string GenerateOutput(Order order, OrderStatus status)
+        static std::string GenerateOutput(Order order, StatusEnum::OrderStatus status)
         {
             //Valid for INFO, POST
-            if(status != OrderStatus::INFO && status != OrderStatus::POST)
+            if(status != StatusEnum::INFO && status != StatusEnum::POST)
             {
                 return error();
             }
-            return order.getString() + (status == OrderStatus::POST? " HAS BEEN POSTED" : "");
+            return order.getString() + (status == StatusEnum::POST? " HAS BEEN POSTED" : "");
         }
-        static std::string GenerateOutput(std::vector<Order> orders, OrderStatus status)
+        static std::string GenerateOutput(std::vector<Order> orders, StatusEnum::OrderStatus status)
         {
            //Valid for INFO_LIST
-            if(status != OrderStatus::LIST)
+            if(status != StatusEnum::LIST)
             {
                 return error();
             } 
             std::string ret;
 
-            for(Order order : orders)
-                ret += order.getString() + "\n";
+            for(std::vector<Order>::iterator iter = orders.begin(); iter != orders.end(); iter++)
+                ret += iter->getString() + "\n";
             ret += "END OF LIST";
             return ret;
         }
-        static std::string GenerateOutput(std::string action, int quant, Order order, OrderStatus status)
+        static std::string GenerateOutput(std::string action, int quant, Order order, StatusEnum::OrderStatus status)
         {
            //Valid for REPORT
-            if(status != OrderStatus::REPORT)
+            if(status != StatusEnum::REPORT)
             {
                 return error();
             } 

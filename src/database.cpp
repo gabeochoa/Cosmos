@@ -2,6 +2,7 @@
 
 Database::Database()
 {
+    orderID = 0;
     logger = new Logger();
 }
 
@@ -9,25 +10,25 @@ void Database::addData(Order data)
 {
     //just add the data in this case
     mydata.push_back(data);
-    *logger << OrderInfo::GenerateOutput(data, OrderInfo::OrderStatus::POST) << std::endl;       
+    *logger << OrderInfo::GenerateOutput(data, StatusEnum::POST) << std::endl;       
 }
 
 void Database::removeData(std::string dealer, int id)
 {
-    for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
+    for(std::vector<Order>::iterator iter = mydata.begin(); iter != mydata.end(); iter++)
     {
         if(iter->getOrderId() == id)
         {
             if(iter->getDealer() == dealer)
             { 
                 mydata.erase(iter);
-                info.insert(std::pair<int, OrderInfo::OrderStatus>(id,  OrderInfo::OrderStatus::REVOKED));
-                *logger << OrderInfo::GenerateOutput(id, OrderInfo::OrderStatus::REVOKED) << std::endl;
+                info.insert(std::pair<int, StatusEnum::OrderStatus>(id,  StatusEnum::REVOKED));
+                *logger << OrderInfo::GenerateOutput(id, StatusEnum::REVOKED) << std::endl;
                 return;
             }
             else
             {
-                *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
+                *logger << OrderInfo::GenerateOutput(StatusEnum::UNAUTHORIZED) << std::endl;
                 return; 
             }
         }
@@ -39,24 +40,24 @@ bool Database::aggress(/*std::string dealer,*/ int order_id, int quantity)
     std::vector<Order>::iterator x = getOrderFromID(order_id);
     if(x == mydata.end())
     {
-        *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNKNOWN_ORDER) << std::endl;
+        *logger << OrderInfo::GenerateOutput(StatusEnum::UNKNOWN_ORDER) << std::endl;
         return false;
     }
     if(quantity > x->getAmount())
     { 
         //TODO This might need to be changed??
-        *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
+        *logger << OrderInfo::GenerateOutput(StatusEnum::UNAUTHORIZED) << std::endl;
         return false;
     }
     //TODO literally no other checks?
-    info.insert(std::pair<int, OrderInfo::OrderStatus>(order_id,  OrderInfo::OrderStatus::FILLED));
+    info.insert(std::pair<int, StatusEnum::OrderStatus>(order_id,  StatusEnum::FILLED));
     x->removeAmount(quantity);
 
     *logger << OrderInfo::GenerateOutput(
         "BOUGHT", 
         quantity, 
         *x,
-        OrderInfo::OrderStatus::REPORT) << std::endl;    
+        StatusEnum::REPORT) << std::endl;    
     return true;
 }
 
@@ -67,7 +68,7 @@ std::vector<Order> Database::findData(bool useFilter=false)
 void Database::filterData(std::string comm,  std::string dealer_ID)
 {
     filteredData.clear();
-    for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
+    for(std::vector<Order>::iterator iter = mydata.begin(); iter != mydata.end(); iter++)
     {
         if(comm != "" && iter->getCommodity() != comm)
             continue;
@@ -85,7 +86,7 @@ int Database::getOrderID()
 
 std::vector<Order>::iterator Database::getOrderFromID(int id)
 {
-    for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
+    for(std::vector<Order>::iterator iter = mydata.begin(); iter != mydata.end(); iter++)
         if(iter->getOrderId() == id)
             return iter;
     return mydata.end();
@@ -99,7 +100,7 @@ void Database::getStatus(std::string dealer, int orderid)
     {
         if(!info.count(orderid))
         {
-            *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNKNOWN_ORDER) << std::endl;
+            *logger << OrderInfo::GenerateOutput(StatusEnum::UNKNOWN_ORDER) << std::endl;
         }
         else
         {
@@ -109,27 +110,27 @@ void Database::getStatus(std::string dealer, int orderid)
     }
     if(iter->getDealer() != dealer)
     {
-        *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
+        *logger << OrderInfo::GenerateOutput(StatusEnum::UNAUTHORIZED) << std::endl;
         return;
     }
 
     if(iter->getAmount() == 0)
     {
-        *logger << OrderInfo::GenerateOutput(iter->getOrderId(), OrderInfo::OrderStatus::FILLED) << std::endl;
+        *logger << OrderInfo::GenerateOutput(iter->getOrderId(), StatusEnum::FILLED) << std::endl;
     }
     else if(iter->getAmount() > 0)
     {
-        *logger << OrderInfo::GenerateOutput(*iter, OrderInfo::OrderStatus::INFO) << std::endl;
+        *logger << OrderInfo::GenerateOutput(*iter, StatusEnum::INFO) << std::endl;
     }
 }
 
 void Database::print(std::vector<Order> orders)
 {
-    *logger << OrderInfo::GenerateOutput(orders, OrderInfo::OrderStatus::LIST) << std::endl;
+    *logger << OrderInfo::GenerateOutput(orders, StatusEnum::LIST) << std::endl;
 }
 void Database::print(Order order)
 {
-    *logger << OrderInfo::GenerateOutput(order, OrderInfo::OrderStatus::INFO) << std::endl;
+    *logger << OrderInfo::GenerateOutput(order, StatusEnum::INFO) << std::endl;
 }
 
 std::string Database::log()

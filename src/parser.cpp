@@ -2,7 +2,7 @@
 
 Parser::Parser()
 {
-
+    input = "";
 }
 
 void Parser::error(void) { 
@@ -51,10 +51,9 @@ void Parser::inputmessage(void) {
 
 std::string Parser::dealerid(void) { 
     std::string result;
-    for(std::string vd : valid_dealers)
-    {
-        if(token == vd)
-            return vd;
+    for(int i = 0; i < numdealers; i++) {
+        if(token == valid_dealers[i])
+            return token;
     }
     //std::cout << "ERROR: NO DEALER ID MATCH" << endl;
     error();
@@ -149,9 +148,10 @@ std::string Parser::side(void)
 
 std::string Parser::commodity(void)
 {
-    for(std::string comm : valid_commodity)
+    
+    for(int i = 0; i < numcommodities; i++) 
     {
-        if(token == comm)
+        if(token == valid_commodity[i])
         {
             return token;
         }

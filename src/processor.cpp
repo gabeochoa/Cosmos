@@ -4,7 +4,7 @@ Processor* Processor::_instance = NULL;
 
 Processor Processor::getInstance()
 { 
-    if (!_instance) 
+    if (!_instance)
         _instance = new Processor();
     return *_instance; 
 }

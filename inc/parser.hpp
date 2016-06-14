@@ -19,7 +19,7 @@ class Parser
     private:
 
         std::vector<std::string> output;
-        std::string input = "";
+        std::string input;
         std::string token; 
         std::string errorstr; 
 
