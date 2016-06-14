@@ -3,7 +3,7 @@
 </p>
 
 **C**os**M**o**S** is an electronic platform for trading commodities<sup>[1]</sup>
-
+[![Build Status](https://travis-ci.org/gabeochoa/Cosmos.svg?branch=master)](https://travis-ci.org/gabeochoa/Cosmos)
 Description
 -----
 
