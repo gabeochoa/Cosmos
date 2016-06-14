@@ -4,8 +4,9 @@
 
 **C**os**M**o**S** is an electronic platform for trading commodities<sup>[1]</sup>
 [![Build Status](https://travis-ci.org/gabeochoa/Cosmos.svg?branch=master)](https://travis-ci.org/gabeochoa/Cosmos)
-Description
 [![GitHub release](https://img.shields.io/github/release/gabeochoa/cosmos.svg?maxAge=2592000)]()
+
+Description
 -----
 
 Cosmos is focused on making it easy to find and trade commodities. 
