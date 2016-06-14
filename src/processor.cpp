@@ -23,14 +23,14 @@ std::string Processor::run(Database& database, std::vector<std::string> strToPro
         side = strToProc[2];
         commodity =  strToProc[3]; 
         orderid = database.getOrderID();
-        amount= atoi(strToProc[4]);
-        price = atof(strToProc[5]);
+        amount= atoi(strToProc[4].c_str());
+        price = atof(strToProc[5].c_str());
         Order o = Order::createOrder(dealer, side, commodity, orderid, amount, price);
         database.addData(o);
     }else if(cmd == "REVOKE"){
-        database.removeData(strToProc[0],atoi(strToProc[2]));
+        database.removeData(strToProc[0],atoi(strToProc[2].c_str()));
     }else if(cmd == "CHECK"){
-        database.getStatus(strToProc[0],atoi(strToProc[2]));
+        database.getStatus(strToProc[0],atoi(strToProc[2].c_str()));
     }else if(cmd == "LIST"){
         bool useFilter = false;
         //std::cout << strToProc.size() << std::endl;
@@ -53,7 +53,7 @@ std::string Processor::run(Database& database, std::vector<std::string> strToPro
         strToProc.erase(strToProc.begin());//erase cmd
         for(uint i =0; i<strToProc.size(); i+=2)
         {
-            database.aggress(/*dealer,*/ atoi(strToProc[i]), atoi(strToProc[i+1]));
+            database.aggress(/*dealer,*/ atoi(strToProc[i].c_str()), atoi(strToProc[i+1].c_str()));
         }
     }  
     return database.log();   
