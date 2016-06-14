@@ -172,7 +172,7 @@ std::string Parser::price(void)
 {
     try
     {
-        double value = std::stod(token);
+        std::stod(token);
         return token;
     }
     catch(std::exception& e)

@@ -76,9 +76,9 @@ int runSocket1(int portno)
     listen(sockfd,1);
     clilen = sizeof(cli_addr);
     
-    int cont = (newsockfd = accept(sockfd, 
+    newsockfd = accept(sockfd, 
              (struct sockaddr *) &cli_addr, 
-             &clilen));
+             &clilen);
     close(sockfd);
     
     if (processSocket(newsockfd) < 0) 
@@ -232,10 +232,6 @@ int runSocket2(int portno)
                     exit (EXIT_FAILURE);
                 }
     
-                fprintf (stderr,
-                    "Server: connect from host %s, port %hd.\n",
-                    inet_pton (AF_INET, "localhost",  &clientname.sin_addr),
-                    ntohs (clientname.sin_port));
                 FD_SET (newconn, &active_fd_set);
             }
             else

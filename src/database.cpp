@@ -12,28 +12,6 @@ void Database::addData(Order data)
     *logger << OrderInfo::GenerateOutput(data, OrderInfo::OrderStatus::POST) << std::endl;       
 }
 
-// void Database::removeData(std::string dealer, Order data)
-// {
-//     for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
-//     {
-//         if(*iter == data)
-//         {
-//             if(data.getDealer() == dealer)
-//             {
-//                 mydata.erase(iter);
-//                 return;
-//             }
-//             else
-//             {
-//                 *logger << OrderInfo::GenerateOutput(OrderInfo::ErrorCode::UNAUTHORIZED) << std::endl;
-//                 return;
-//             }
-//         }
-//     }
-//     //else
-//         //Data not found
-// }
-
 void Database::removeData(std::string dealer, int id)
 {
     for(auto iter = mydata.begin(); iter != mydata.end(); iter++)
@@ -56,7 +34,7 @@ void Database::removeData(std::string dealer, int id)
     }
 }
 
-bool Database::aggress(std::string dealer, int order_id, int quantity)
+bool Database::aggress(/*std::string dealer,*/ int order_id, int quantity)
 {
     std::vector<Order>::iterator x = getOrderFromID(order_id);
     if(x == mydata.end())

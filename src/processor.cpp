@@ -51,9 +51,9 @@ std::string Processor::run(Database& database, std::vector<std::string> strToPro
     }else if(cmd == "AGGRESS"){
         strToProc.erase(strToProc.begin());//erase dealer
         strToProc.erase(strToProc.begin());//erase cmd
-        for(int i =0; i<strToProc.size(); i+=2)
+        for(uint i =0; i<strToProc.size(); i+=2)
         {
-            database.aggress(dealer, stoi(strToProc[i]), stoi(strToProc[i+1]));
+            database.aggress(/*dealer,*/ stoi(strToProc[i]), stoi(strToProc[i+1]));
         }
     }  
     return database.log();   

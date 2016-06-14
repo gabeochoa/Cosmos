@@ -1,8 +1,15 @@
 CC = clang++
-CFLAGS := -std=c++11 -g
+CFLAGS := -std=c++11 -g -Wall -Wextra -Werror -Wpedantic
 EXEC = cms
 SRC_DIR = src
 OBJ = obj/main.o obj/processor.o obj/parser.o obj/database.o
+
+TESTEXEC = tests
+TEST_DIR = test
+GTEST_DIR = ~/googletest-release-1.7.0/
+TESTFLAGS = $(GTEST_DIR)/include -I.
+GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
+                $(GTEST_DIR)/include/gtest/internal/*.h
 
 all:
 	make clean
