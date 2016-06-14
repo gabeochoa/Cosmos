@@ -4,9 +4,8 @@ EXEC = cms
 SRC_DIR = src
 OBJ = obj/main.o obj/processor.o obj/parser.o obj/database.o
 
-all:
-	make clean
-	make cms
+all: $(OBJ)
+	$(CC) $(CFLAGS) -o $(EXEC) $(OBJ)
 
 obj/main.o: src/main.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -19,10 +18,7 @@ obj/parser.o: src/parser.cpp
 
 obj/database.o: src/database.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
-
-$(EXEC): $(OBJ)
-	$(CC) $(CFLAGS) -o $(EXEC) $(OBJ)
-
+	
 clean:
 	-rm -rf obj/*.o src/*.gch cms
 
