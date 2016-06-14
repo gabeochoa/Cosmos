@@ -23,14 +23,14 @@ std::string Processor::run(Database& database, std::vector<std::string> strToPro
         side = strToProc[2];
         commodity =  strToProc[3]; 
         orderid = database.getOrderID();
-        amount=stoi(strToProc[4]);
-        price =stof(strToProc[5]);
+        amount= atoi(strToProc[4]);
+        price = atof(strToProc[5]);
         Order o = Order::createOrder(dealer, side, commodity, orderid, amount, price);
         database.addData(o);
     }else if(cmd == "REVOKE"){
-        database.removeData(strToProc[0],stoi(strToProc[2]));
+        database.removeData(strToProc[0],atoi(strToProc[2]));
     }else if(cmd == "CHECK"){
-        database.getStatus(strToProc[0],stoi(strToProc[2]));
+        database.getStatus(strToProc[0],atoi(strToProc[2]));
     }else if(cmd == "LIST"){
         bool useFilter = false;
         //std::cout << strToProc.size() << std::endl;
@@ -53,7 +53,7 @@ std::string Processor::run(Database& database, std::vector<std::string> strToPro
         strToProc.erase(strToProc.begin());//erase cmd
         for(uint i =0; i<strToProc.size(); i+=2)
         {
-            database.aggress(/*dealer,*/ stoi(strToProc[i]), stoi(strToProc[i+1]));
+            database.aggress(/*dealer,*/ atoi(strToProc[i]), atoi(strToProc[i+1]));
         }
     }  
     return database.log();   
