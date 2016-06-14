@@ -54,6 +54,7 @@ class Parser
 
     public:
         Parser();
+        //err string, input text, output vector
         bool isValid(std::string&, std::string&, std::vector<std::string>&);
 };
 

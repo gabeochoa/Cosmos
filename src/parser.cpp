@@ -170,8 +170,12 @@ std::string Parser::amount(void)
 
 std::string Parser::price(void)
 {
-    if(istype<float>(token))
-        return token;
+    if(token.find_first_not_of("1234567890.-") == std::string::npos)
+    {
+        //used to get rid of NaN;
+        if(istype<float>(token))
+            return token;
+    }
     error();
     return "";
 }
