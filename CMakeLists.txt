@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 project(cms)
 
-
 enable_language(C CXX)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
@@ -31,7 +30,7 @@ foreach(_source ${GOOGLETEST_SOURCES})
     set_source_files_properties(${_source} PROPERTIES GENERATED 1)
 endforeach()
 
-add_library(googletest ${GOOGLETEST_SOURCES})
+add_library(gtest ${GOOGLETEST_SOURCES})
 
 add_executable(
     unit_tests
@@ -39,11 +38,11 @@ add_executable(
     test/test_parser.cpp
     )
 
-add_dependencies(unit_tests googletest)
+add_dependencies(unit_tests gtest)
 
 target_link_libraries(
     unit_tests
-    googletest
+    gtest
     pthread
     )
 
@@ -51,3 +50,5 @@ include(CTest)
 enable_testing()
 
 add_test(unit ${PROJECT_BINARY_DIR}/unit_tests)
+
+
