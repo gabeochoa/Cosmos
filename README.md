@@ -5,6 +5,7 @@
 **C**os**M**o**S** is an electronic platform for trading commodities<sup>[1]</sup>
 [![Build Status](https://travis-ci.org/gabeochoa/Cosmos.svg?branch=master)](https://travis-ci.org/gabeochoa/Cosmos)
 [![GitHub release](https://img.shields.io/github/release/gabeochoa/cosmos.svg?maxAge=2592000)]()
+[![Coverage Status](https://coveralls.io/repos/github/gabeochoa/Cosmos/badge.svg?branch=master)](https://coveralls.io/github/gabeochoa/Cosmos?branch=master)
 
 Description
 -----
