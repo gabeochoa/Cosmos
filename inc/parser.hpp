@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+#include <cstdlib>
 #include "grammar.hpp"
 
 class ParseException : public std::runtime_error
