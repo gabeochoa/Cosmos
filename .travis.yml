@@ -1,24 +1,12 @@
 language: cpp
-sudo: required
 compiler:
 - clang
 - gcc
 os:
 - linux
-- osx
-before_script: ls
 script:
   - mkdir build
   - cd build
   - cmake ..
   - make
   - ./unit_tests
-after_success: ls
-branches:
-  only:
-  - master
-notifications:
-  email: false
-  irc:
-    template:
-    - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"
