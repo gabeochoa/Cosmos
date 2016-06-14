@@ -260,10 +260,10 @@ TEST_F(ParserTest, TrueOnValidAggress) {
 
 TEST_F(ParserTest, FalseOnInvalidAggress_NumArgs) {
     Parser parser;
-    inputstr = "DB AGRESS";
+    inputstr = "DB AGGRESS";
     outcome = parser.isValid(errstr, inputstr, outputvec);
     ASSERT_FALSE(outcome) << "output string = " << ::testing::PrintToString(outputvec);
-    inputstr = "DB AGRESS 12";
+    inputstr = "DB AGGRESS 12";
     outcome = parser.isValid(errstr, inputstr, outputvec);
     ASSERT_FALSE(outcome) << "output string = " << ::testing::PrintToString(outputvec);
 }

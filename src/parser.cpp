@@ -133,6 +133,7 @@ void Parser::aggress(void)
         getToken();
         if (token.size() == 0) {
             error();
+            return;
         }
         output.push_back(amount()); 
     }
