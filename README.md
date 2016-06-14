@@ -29,36 +29,53 @@ Build/Run
 
 ```bash
 #To Compile and Run the Base Program
+mkdir build
+cd build
+cmake ..
 make
-./cms base < notes/test2.txt
+./cms base < ../notes/test2.txt
+
+#Run tests
+./unit_tests
+
 #Cleanup
-make clean
+cd ..
+rm -rf build
 ```
+
 ```bash
-#To Run Extention 1
+#To Run Extention 1/2
 ./cms ext1 [port-num]
+```
+or
+```
+./cms ext2 [port-num]
 ```
 In another shell
 
 ```bash
-cd client
+cd ../client
 make
-./client localhost [port-num] < notes/test2.txt
+./client localhost [port-num] < ../notes/test2.txt
 ```
 
 File Layout
 -----
 
+- build/
+    - will contains main exec and test exec
 - client/
 	- contains sample client application
+- ext/
+    - git clone of gtest
+- inc/
+    - all .hpp's
 - notes/
-	- Contains notes and basic tests
+    - Contains notes and basic tests
 - obj/
-	- should be empty, contains .o's
+    - should be empty, contains .o's
 - src/
 	- contains code for 'server' application
-- makefile
-	- run 'make' to compile  
 
 
 

@@ -28,7 +28,6 @@ file(GLOB SOURCES "src/*.cpp")
 add_executable(cosmos ${SOURCES})
 
 set(GOOGLETEST_ROOT ext/gtest/googletest CACHE STRING "Google Test source root")
-link_directories(${MyProject_SOURCE_DIR}/LibProject/src)
 include_directories(
     ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
     ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include

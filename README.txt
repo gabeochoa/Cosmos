@@ -15,22 +15,26 @@ While running, the database logs all output and passes it back up to the process
 
 no known bugs, but I have not idea how sound the socket stuff is, especially ext2 as its practically magic
 
-
-To Run:
-
 #To Compile and Run the Base Program
+mkdir build
+cd build
+cmake ..
 make
-./cms base < notes/test2.txt
-#To Run Extention 1
+./cms base < ../notes/test2.txt
+
+
+#To Run Extention 1/2
 ./cms ext1 [port-num]
-#To Run Extention 2
+or
 ./cms ext2 [port-num]
 
-#In another shell
-cd client
+In another shell
+cd ../client
 make
-./client localhost [port-num] < notes/test2.txt
+./client localhost [port-num] < ../notes/test2.txt
 
 #Cleanup
-make clean
-**Much More Info in README.md**
+cd ..
+rm -rf build
+
+**More Info in README.md**

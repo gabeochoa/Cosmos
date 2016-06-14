@@ -5,8 +5,13 @@ compiler:
 os:
 - linux
 - osx
-before_script: make clean
-script: make; make tests; ./tests
+before_script: ls
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - ./unit_tests
 after_success: ls
 branches:
   only:
