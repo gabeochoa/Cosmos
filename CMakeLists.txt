@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
-project(cosmos)
+project(cms)
 
 
 enable_language(C CXX)
@@ -14,7 +14,7 @@ endif()
 
 include_directories(inc)
 file(GLOB SOURCES "src/*.cpp")
-add_executable(cosmos ${SOURCES})
+add_executable(cms ${SOURCES})
 
 set(GOOGLETEST_ROOT ext/gtest/googletest CACHE STRING "Google Test source root")
 include_directories(
