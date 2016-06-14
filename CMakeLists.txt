@@ -15,7 +15,7 @@ include_directories(inc)
 file(GLOB SOURCES "src/*.cpp")
 add_executable(cms ${SOURCES})
 
-set(GOOGLETEST_ROOT ext/googletest/googletest CACHE STRING "Google Test source root")
+set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
 include_directories(
     ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
     ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
