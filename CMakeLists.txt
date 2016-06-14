@@ -46,6 +46,7 @@ add_library(googletest ${GOOGLETEST_SOURCES})
 
 add_executable(
     unit_tests
+    test/main.cpp
     test/test_parser.cpp
     )
 

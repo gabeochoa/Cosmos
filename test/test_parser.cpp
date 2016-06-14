@@ -44,9 +44,3 @@ TEST(FooTest, MethodBarDoesAbc) {
     std::stringstream ss6("DB REVOKE");
     std::stringstream ss7("");
 }
-
-int main(int argc, char** argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
