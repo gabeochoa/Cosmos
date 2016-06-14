@@ -2,4 +2,6 @@
 *.swp
 *.gch
 *.exe
+
+/build/
 cms
