@@ -4,6 +4,7 @@
 #include <string> 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 #include "status-enum.hpp"
 #include "order.hpp"
 
