@@ -15,7 +15,7 @@ include_directories(inc)
 file(GLOB SOURCES "src/*.cpp")
 add_executable(cms ${SOURCES})
 
-set(GOOGLETEST_ROOT ext/gtest/googletest CACHE STRING "Google Test source root")
+set(GOOGLETEST_ROOT ext/googletest/googletest CACHE STRING "Google Test source root")
 include_directories(
     ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
     ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
@@ -30,7 +30,7 @@ foreach(_source ${GOOGLETEST_SOURCES})
     set_source_files_properties(${_source} PROPERTIES GENERATED 1)
 endforeach()
 
-add_library(gtest ${GOOGLETEST_SOURCES})
+add_library(googletest ${GOOGLETEST_SOURCES})
 
 add_executable(
     unit_tests
@@ -38,11 +38,11 @@ add_executable(
     test/test_parser.cpp
     )
 
-add_dependencies(unit_tests gtest)
+add_dependencies(unit_tests googletest)
 
 target_link_libraries(
     unit_tests
-    gtest
+    googletest
     pthread
     )
 
