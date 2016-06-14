@@ -47,17 +47,18 @@ class OrderInfo
         static std::string GenerateOutput(int orderid, StatusEnum::OrderStatus status)
         {
             //Valid for FILLED&REVOKED
-            std::string ret = "";
-            ret += std::to_string(orderid) + " HAS BEEN ";
+            std::stringstream ret;
+            ret << orderid;
+            ret << " HAS BEEN ";
             if(status == StatusEnum::FILLED)
-                ret += "FILLED";
+                ret << "FILLED";
             else if(status == StatusEnum::REVOKED)
-                ret += "REVOKED";
+                ret << "REVOKED";
             else
             {
                 return error();
             }
-            return ret;
+            return ret.str();
         }
         static std::string GenerateOutput(Order order, StatusEnum::OrderStatus status)
         {
@@ -75,12 +76,12 @@ class OrderInfo
             {
                 return error();
             } 
-            std::string ret;
+            std::stringstream ret;
 
             for(std::vector<Order>::iterator iter = orders.begin(); iter != orders.end(); iter++)
-                ret += iter->getString() + "\n";
-            ret += "END OF LIST";
-            return ret;
+                ret << iter->getString() + "\n";
+            ret << "END OF LIST";
+            return ret.str();
         }
         static std::string GenerateOutput(std::string action, int quant, Order order, StatusEnum::OrderStatus status)
         {
@@ -92,7 +93,7 @@ class OrderInfo
             //TODO: fix price to 2 decimal points
             std::stringstream os;
             os << action << " "; 
-            os << std::to_string(quant) << " "; 
+            os << quant << " "; 
             os << order.getCommodity() << " @ "; 
             os.precision(2);
             os << std::fixed;
