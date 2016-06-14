@@ -1,6 +1,5 @@
 language: cpp
 sudo: required
-dist: trusty
 compiler:
 - clang
 os:
@@ -17,6 +16,3 @@ notifications:
   irc:
     template:
     - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"
-env:
-  global:
-  - LANG="en_US.UTF-8"
