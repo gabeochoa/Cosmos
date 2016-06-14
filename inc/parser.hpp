@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <stdexcept>
 #include <cstdlib>
@@ -41,14 +42,16 @@ class Parser
         std::string dealerid(void);
         std::string commodity(void);
 
-        //http://stackoverflow.com/questions/2844817/how-do-i-check-if-a-c-string-is-an-int
-        inline bool isInteger(const std::string & s)
-        {
-           if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false ;
-           char * p ;
-           strtol(s.c_str(), &p, 10) ;
-           return (*p == 0) ;
+        //http://stackoverflow.com/questions/447206/c-isfloat-function
+        template <class type> 
+        bool istype(std::string myString ) {
+            std::istringstream iss(myString);
+            type f;
+            iss >> std::noskipws >> f; 
+            // Check the entire string was consumed and if either failbit or badbit is set
+            return iss.eof() && !iss.fail(); 
         }
+
     public:
         Parser();
         bool isValid(std::string&, std::string&, std::vector<std::string>&);

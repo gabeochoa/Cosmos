@@ -162,7 +162,7 @@ std::string Parser::commodity(void)
 
 std::string Parser::amount(void)
 {
-    if(isInteger(token))
+    if(istype<int>(token))
         return token;
     error();
     return "";
@@ -170,15 +170,9 @@ std::string Parser::amount(void)
 
 std::string Parser::price(void)
 {
-    try
-    {
-        std::stod(token);
+    if(istype<float>(token))
         return token;
-    }
-    catch(std::exception& e)
-    {
-        error();
-    }
+    error();
     return "";
 }
 
