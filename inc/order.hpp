@@ -8,6 +8,7 @@
 
 class Order 
 {
+
     private:
         std::string dealer;
         std::string side;
@@ -96,8 +97,5 @@ inline bool operator>=(const Order& lhs, const Order& rhs){ return !(lhs < rhs);
 
 inline bool operator== (const Order& lhs, const Order& rhs){ return !(lhs < rhs) && !(lhs>rhs); }
 inline bool operator!= (const Order& lhs, const Order& rhs){ return !(rhs == lhs); }
-
-
-
 
 #endif //ORDER_H

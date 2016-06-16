@@ -79,7 +79,7 @@ void Database::filterData(std::string comm,  std::string dealer_ID)
     }
 }
 
-int Database::getOrderID()
+int Database::getNextOrderID()
 {
     return ++orderID;
 }

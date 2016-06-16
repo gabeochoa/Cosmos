@@ -19,6 +19,11 @@
 
 class Database 
 {
+    #ifndef TEST_FRIENDS
+    #define TEST_FRIENDS
+    #endif
+    TEST_FRIENDS;
+
     private:
         std::vector<Order> mydata;       
         std::vector<Order> filteredData;
@@ -35,7 +40,7 @@ class Database
         void filterData(std::string, std::string);
         std::vector<Order>::iterator getOrderFromID(int);
         void getStatus(std::string, int);
-        int getOrderID();
+        int getNextOrderID();
         void print(std::vector<Order> orders);
         void print(Order orders);
         std::string log();

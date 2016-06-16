@@ -22,7 +22,7 @@ std::string Processor::run(Database& database, std::vector<std::string> strToPro
     {
         side = strToProc[2];
         commodity =  strToProc[3]; 
-        orderid = database.getOrderID();
+        orderid = database.getNextOrderID();
         amount= atoi(strToProc[4].c_str());
         price = atof(strToProc[5].c_str());
         Order o = Order::createOrder(dealer, side, commodity, orderid, amount, price);
